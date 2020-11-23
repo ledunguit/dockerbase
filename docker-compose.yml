@@ -12,7 +12,7 @@ volumes:
   dir-site:
     driver_opts:
       type: none
-      device: /var/www/
+      device: /home/backupdocker/app/
       o: bind
 
 services:
@@ -21,7 +21,7 @@ services:
     container_name: php-product
     build:
       dockerfile: Dockerfile
-      context: ./php/
+      context: ./
     hostname: php
     restart: always
     networks:
@@ -55,7 +55,7 @@ services:
     volumes:
       - ./database:/var/lib/mysql
       - ./my.cnf:/etc/mysql/my.cnf
-      - /var/www/data.sql:/home/data.sql
+      - ./app/data.sql:/home/data.sql
     environment:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=nt208
