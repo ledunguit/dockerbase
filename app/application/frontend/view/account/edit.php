@@ -24,9 +24,9 @@ $user = $this->userInfo;
                     <div class="form-group">
                         <label for="User[email]">Hình ảnh đại diện:</label>
                         <div id="avt" style="margin: 10px 0px 20px 0px;" width="50px">
-                        <?php if (getimagesize(\Venus\Venus::$baseUrl . '/publics/images/avatar/' . $user->id . '.jpg')): ?>
+                        <?php if (file_exists('./publics/images/avatar/' . $user->id . '.jpg') && getimagesize('./publics/images/avatar/' . $user->id . '.jpg')): ?>
                             <img src="<?=\Venus\Venus::$baseUrl . '/publics/images/avatar/' . $user->id . '.jpg'?>" />
-                        <?php elseif (getimagesize(\Venus\Venus::$baseUrl . '/publics/images/avatar/' . $user->id . '.png')): ?>
+                        <?php elseif (file_exists('./publics/images/avatar/' . $user->id . '.png') && getimagesize('./publics/images/avatar/' . $user->id . '.png')): ?>
                             <img src="<?=\Venus\Venus::$baseUrl . '/publics/images/avatar/' . $user->id . '.png'?>" />
                         <?php else: ?>
                             <img src="<?=\Venus\Venus::$baseUrl?>/publics/images/avatar/default.png" width='180' />
