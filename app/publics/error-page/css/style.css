@@ -1,0 +1,224 @@
+:root {
+    --clr-background: #d5dfdc;
+    --clr-secondary: #2d3058;
+    --clr-primary: #d81e5b;
+    --clr-window-red: #ff605c;
+    --clr-window-yellow: #ffbd44;
+    --clr-window-green: #00ca4e;
+  }
+
+  *,
+  *:before,
+  *:after {
+    margin: 0;
+    padding: 0;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+
+  body {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    height: 100vh;
+    background-color: var(--clr-background);
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.2rem;
+    color: var(--clr-secondary);
+  }
+
+  a,
+  a:hover,
+  a:visited {
+    text-decoration: none;
+  }
+
+  a:focus {
+    outline: none;
+  }
+
+  /* ==========
+  index
+  ========== */
+
+  .btn {
+    z-index: 1;
+    position: relative;
+    color: white;
+    padding: 0.5em 1em;
+    border-radius: 3px;
+    background-color: var(--clr-secondary);
+  }
+
+  .btn::before {
+    content: '';
+    z-index: -1;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--clr-primary);
+    border-radius: 3px;
+    -webkit-transform-origin: center right;
+    transform-origin: center right;
+    -webkit-transform: scaleX(0);
+    transform: scaleX(0);
+    -webkit-transition: -webkit-transform 0.25s ease-in-out;
+    transition: -webkit-transform 0.25s ease-in-out;
+    transition: transform 0.25s ease-in-out;
+    transition: transform 0.25s ease-in-out, -webkit-transform 0.25s ease-in-out;
+  }
+
+  .btn:hover {
+    cursor: pointer;
+  }
+
+  .btn:hover::before,
+  .btn:focus::before {
+    -webkit-transform-origin: center left;
+    transform-origin: center left;
+    -webkit-transform: scaleX(1);
+    transform: scaleX(1);
+  }
+
+  /* ==========
+  404
+  ========== */
+
+  .browser {
+    position: relative;
+    width: 45%;
+    height: 60%;
+    border: 3px solid var(--clr-secondary);
+    border-radius: 10px;
+    padding: 10px;
+    overflow: hidden;
+    -webkit-transition: all 500ms;
+    transition: all 500ms;
+  }
+
+  .browser__close,
+  .browser__minimize,
+  .browser__maximize {
+    border-radius: 50%;
+    width: 13px;
+    height: 13px;
+    float: left;
+    margin-right: 10px;
+  }
+
+  .browser__close:hover,
+  .browser__minimize:hover,
+  .browser__maximize:hover {
+    cursor: pointer;
+  }
+
+  .browser__close {
+    background-color: var(--clr-window-red);
+  }
+
+  .browser__minimize {
+    background-color: var(--clr-window-yellow);
+  }
+
+  .browser__maximize {
+    background-color: var(--clr-window-green);
+  }
+
+  .browser__address-bar {
+    width: 108%;
+    margin-left: -4%;
+    border-top: 3px solid var(--clr-secondary);
+    margin-top: 20px;
+  }
+
+  .browser--is-full-screen {
+    height: 99%;
+    width: 99%;
+  }
+
+  .browser--is-minimized {
+    height: 36px;
+  }
+
+  .browser__body {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-transition: all 500ms;
+    transition: all 500ms;
+    font-size: 1.4rem;
+  }
+
+  .browser__body p {
+      text-align: center;
+  }
+
+  .x {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    margin-top: 20%;
+    margin-bottom: 30px;
+    border: 3px solid var(--clr-secondary);
+    border-radius: 50%;
+    -webkit-transition: all 500ms;
+    transition: all 500ms;
+  }
+
+  .x:before,
+  .x:after {
+    width: 40px;
+    height: 3px;
+    position: absolute;
+    top: 49%;
+    left: 50%;
+    margin-left: -20px;
+    background-color: var(--clr-secondary);
+    content: '';
+    display: block;
+  }
+
+  .x:before {
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+  }
+
+  .x:after {
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+
+  .x:hover {
+    -webkit-transform: rotate(180deg);
+    transform: rotate(180deg);
+  }
+
+  @media only screen and (max-width: 640px) {
+    .browser {
+      width: 70%;
+      height: 80%;
+    }
+
+    .x {
+      margin-top: 30%;
+    }
+  }
