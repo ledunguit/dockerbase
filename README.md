@@ -110,7 +110,7 @@ Thêm vào cuối file config httpd:
 ```
 AddHanller "proxy:fcgi://[php-container-name]" .php
 ```
-##### Current project: php7.4-fpm được cài dặt trong container có tên là php-product:
+##### Current project: php7.4-fpm được cài đặt trong container có tên là php-product:
 ```
 AddHandler "proxy:fcgi://php-product:9000" .php
 ```
