@@ -125,7 +125,7 @@ Chỉnh sửa file conf: Cấu hình authentication mặc định cho mysql là 
 default-authentication-plugin=mysql_native_password
 ```
 #### Nạp file database đã ánh xạ ở container mysql: ./app/data.sql:/home/data.sql
-Mở terminal lên chạy lệnh: <b>docker exec -it [mysql-container-id] /bin/bash</b>
+Mở terminal lên chạy lệnh: <b>docker exec -it [mysql-container-id] /bin/bash</b></br>
 Chạy tiếp lệnh để nạp database: <b>mysql -uroot -p [database-name] < /home/data.sql </b> </br>
 Nhập pass
 
