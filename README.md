@@ -91,7 +91,7 @@ services:
 ```
 
 ## Copy config ra ngoài trước khi khởi tạo image bằng docker-compose ##
-Trong khi tạo môi trường để chạy một web application thì ta cần cấu hình lại configuration của các services
+Trong khi tạo môi trường để chạy một web application thì ta cần cấu hình lại configuration của các services</br>
 Copy các file config ra và chỉnh lại để lúc chạy lệnh ```docker-compose up``` thì những file config này sẽ được mount vào và load lên server.
 
 ###### Copy file config apache2 (httpd) ##
