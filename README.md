@@ -12,10 +12,10 @@
 
 ```Dockerfile
 FROM php:7.4-fpm
-RUN docker-php-ext-install mysqli
-RUN docker-php-ext-install pdo_mysql
+RUN docker-php-ext-install mysqli # Cài đặt extension mysqli cho php
+RUN docker-php-ext-install pdo_mysql # Cài đặt extension pdo cho php
 
-WORKDIR /home/sites/testdocker
+WORKDIR /home/sites/testdocker // thư mục làm việc của container này sẽ nằm ở /home/sites/testdocker
 ```
 
 ##### docker-compose.yml
@@ -43,14 +43,14 @@ services:
   my-php:
     container_name: php-product
     build:
-      dockerfile: Dockerfile
-      context: ./
+      dockerfile: Dockerfile # Container này sẽ được build bởi Dockerfile
+      context: ./ # thư mục chứa file Dockerfile tính từ thư mục chứa file docker-compose.yml hiện tại.
     hostname: php
     restart: always
     networks:
-      - my-network
+      - my-network # dùng driver mạng mà chúng ta đã khai báo trước đó
     volumes:
-      - dir-site:/home/sites/testdocker
+      - dir-site:/home/sites/testdocker # Mount project code vào trong /home/sites/testdocker của container.
 
   #CONTAINER HTTPD
   my-httpd:
@@ -62,10 +62,10 @@ services:
       - my-network
     volumes:
       - dir-site:/home/sites/testdocker
-      - ./httpd.conf:/usr/local/apache2/conf/httpd.conf
+      - ./httpd.conf:/usr/local/apache2/conf/httpd.conf # Nạp file config của apache2 vào (Ở đây ta dùng ánh xạ thư mục cho nên file ở máy host sẽ đồng bộ với file ở container).
     ports:
-      - "9999:80"
-      - "443:443"
+      - "9999:80" # Port 9999 ở máy host và port 80 ở container (port mặc định của httpd - apache2).
+      - "443:443" # Port dùng cho SSL HTTPS
 
   #CONTAINER MYSQL
   my-mysql:
@@ -76,8 +76,8 @@ services:
     networks:
       - my-network
     volumes:
-      - ./database:/var/lib/mysql
-      - ./my.cnf:/etc/mysql/my.cnf
+      - ./database:/var/lib/mysql # lưu trữ lại database ngay trên máy host và đồng bộ với container database để tránh trường hợp mất mát dữ liệu.
+      - ./my.cnf:/etc/mysql/my.cnf # nạp config cho mysql server bằng việc ánh xạ my.cnf ở máy host vào /etc/mysql.my.cnf trên container.
       - ./app/data.sql:/home/data.sql # ánh xạ file ./app/data.sql qua thư mục /home/data.sql trong container mysql-product
     environment:
       - MYSQL_ROOT_PASSWORD=root
