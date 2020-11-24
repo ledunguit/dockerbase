@@ -6,7 +6,7 @@
 ```
 ![layout](https://user-images.githubusercontent.com/64201705/99981474-03847700-2ddc-11eb-8eb3-d35b2ff48c9c.png)
 
-## Bước 1: Tạo thư mục chứa toàn bộ những thứ cần thiết để deploy một application: ##
+## Tạo thư mục chứa toàn bộ những thứ cần thiết để deploy một application: ##
 
 ##### Dockerfile
 
@@ -72,19 +72,24 @@ services:
     container_name: mysql-product
     image: "mysql:latest"
     hostname: mysql
-    restart: always
+    restart: always # always restart container if it run failed or crash
     networks:
       - my-network
     volumes:
       - ./database:/var/lib/mysql
       - ./my.cnf:/etc/mysql/my.cnf
-      - ./app/data.sql:/home/data.sql
+      - ./app/data.sql:/home/data.sql # ánh xạ file ./app/data.sql qua thư mục /home/data.sql trong container mysql-product
     environment:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=nt208
       - MYSQL_USER=devuser
       - MYSQL_PASSWORD=devpass
 ```
+##### APP
+```Diff
+- Code PHP APP
+```
+
 ## Copy config ra ngoài trước khi khởi tạo image bằng docker-compose ##
 Trong khi tạo môi trường để chạy một web application thì ta cần cấu hình lại configuration của các services
 Copy các file config ra và chỉnh lại để lúc chạy lệnh ```docker-compose up``` thì những file config này sẽ được mount vào và load lên server.
