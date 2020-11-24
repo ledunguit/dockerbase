@@ -9,6 +9,7 @@
 ## Bước 1: Tạo thư mục chứa toàn bộ những thứ cần thiết để deploy một application: ##
 
 ##### Dockerfile
+
 ```Dockerfile
 FROM php:7.4-fpm
 RUN docker-php-ext-install mysqli
@@ -16,15 +17,17 @@ RUN docker-php-ext-install pdo_mysql
 
 WORKDIR /home/sites/testdocker
 ```
+
 ##### docker-compose.yml
+
 ```YAML
 version: "3"
 
-#NETWORK
+#NETWORK: Define network driver for container
 
 networks:
   my-network:
-    driver: bridge
+    driver: bridge #network connection type: bridge
 
 #VOLUMES
 
@@ -32,11 +35,11 @@ volumes:
   dir-site:
     driver_opts:
       type: none
-      device: /home/backupdocker/app/
+      device: /home/backupdocker/app/ # dir that we want to mount to the container
       o: bind
 
 services:
-  #CONTAINER PHP
+  #CONTAINER PHP: Container that run php7.4-fpm will handle PHP code for our application
   my-php:
     container_name: php-product
     build:
@@ -82,23 +85,26 @@ services:
       - MYSQL_USER=devuser
       - MYSQL_PASSWORD=devpass
 ```
+## Copy config ra ngoài trước khi khởi tạo image bằng docker-compose ##
+Trong khi tạo môi trường để chạy một web application thì ta cần cấu hình lại configuration của các services
+Copy các file config ra và chỉnh lại để lúc chạy lệnh ```docker-compose up``` thì những file config này sẽ được mount vào và load lên server.
+
+###### Copy file config apache2 (httpd) ##
+```Smali
+docker run --rm -v [dir-host]:[dir-httpd-container] httpd cp /usr/local/apache2/conf/httpd.conf [dir-httpd-container]
+tại project này: docker run --rm -v /home/backupdocker/:/home/ httpd /usr/local/apache2/httpd.conf /home/
+```
+
+###### Copy file config for mysql server ##
+```Smali
+docker run --rm -v [dir-host]:[dir-mysql-container] mysql cp /etc/mysql/my.cnf [dir-mysql-container]
+tại project này: docker run --rm -v /home/backupdocker/:/home/ mysql cp /etc/mysql/my.cnf /home/
+```
+
 ## Một số lệnh cơ bản ##
 
 <b>Dừng</b> toàn bộ container: <b>docker</b> container stop $(<b>docker</b> ps -a -q)</br>
 <b>Xóa</b> toàn bộ volumes đã define: <b>docker</b> volume rm $(<b>docker</b> volume ls -q)</br>
 <b>Xóa</b> toàn bộ containers: <b>docker</b> rm $(<b>docker</b> ps -aq)</br>
 <b>Xóa</b> toàn bộ images: <b>docker</b> rmi $(<b>docker</b> images -q)</br>
-
-## Copy config ra ngoài trước khi khởi tạo image bằng docker-compose ##
-Trong khi tạo môi trường để chạy một web application thì ta cần cấu hình lại configuration của các services
-Copy các file config ra và chỉnh lại để lúc chạy lệnh ```docker-compose up``` thì những file config này sẽ được mount vào và load lên server.
-###### Copy file config apache2 (httpd) ##
-```Smali
-docker run --rm -v [dir-host]:[dir-httpd-container] httpd cp /usr/local/apache2/conf/httpd.conf [dir-httpd-container]
-```
-
-###### Copy file config apache2 (httpd) ##
-```Smali
-docker run --rm -v [dir-host]:[dir-mysql-container] mysql cp /etc/mysql/my.cnf [dir-mysql-container]
-```
 
