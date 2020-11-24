@@ -94,7 +94,7 @@ services:
 Trong khi tạo môi trường để chạy một web application thì ta cần cấu hình lại configuration của các services</br>
 Copy các file config ra và chỉnh lại để lúc chạy lệnh ```docker-compose up``` thì những file config này sẽ được mount vào và load lên server.
 
-###### Copy file config apache2 (httpd) ##
+##### Copy file config apache2 (httpd) ##
 ```Smali
 docker run --rm -v [dir-host]:[dir-httpd-container] httpd cp /usr/local/apache2/conf/httpd.conf [dir-httpd-container]
 tại project này: docker run --rm -v /home/backupdocker/:/home/ httpd /usr/local/apache2/httpd.conf /home/
@@ -111,7 +111,7 @@ Thêm vào cuối file config httpd:
 AddHandler "proxy:fcgi://php-product:9000" .php
 ```
 
-###### Copy file config for mysql server ##
+##### Copy file config for mysql server ##
 ```Smali
 docker run --rm -v [dir-host]:[dir-mysql-container] mysql cp /etc/mysql/my.cnf [dir-mysql-container]
 tại project này: docker run --rm -v /home/backupdocker/:/home/ mysql cp /etc/mysql/my.cnf /home/
