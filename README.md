@@ -8,7 +8,7 @@
 
 ## Tạo thư mục chứa toàn bộ những thứ cần thiết để deploy một application: ##
 
-##### Dockerfile
+##### File Dockerfile
 
 ```Dockerfile
 FROM php:7.4-fpm
@@ -18,7 +18,7 @@ RUN docker-php-ext-install pdo_mysql # Cài đặt extension pdo cho php
 WORKDIR /home/sites/testdocker // thư mục làm việc của container này sẽ nằm ở /home/sites/testdocker
 ```
 
-##### docker-compose.yml
+##### File docker-compose.yml
 
 ```YAML
 version: "3"
@@ -85,9 +85,9 @@ services:
       - MYSQL_USER=devuser
       - MYSQL_PASSWORD=devpass
 ```
-##### APP
+##### Thư mục APP
 ```Diff
-- Code PHP APP
+- Code PHP APP đã được viết sẵn từ trước.
 ```
 
 ## Copy config ra ngoài trước khi khởi tạo image bằng docker-compose ##
@@ -120,6 +120,10 @@ Chỉnh sửa file conf: Cấu hình authentication mặc định cho mysql là 
 ```
 default-authentication-plugin=mysql_native_password
 ```
+#### Nạp file database đã ánh xạ ở container mysql: ./app/data.sql:/home/data.sql
+Mở terminal lên chạy lệnh: <b>docker exec -it [mysql-container-id] /bin/bash</b>
+Chạy tiếp lệnh để nạp database: <b>mysql -uroot -p [database-name] < /home/data.sql </b> </br>
+Nhập pass
 
 #### RUN:
 ```
