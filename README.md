@@ -108,6 +108,10 @@ LoadModule rewrite_module modules/mod_rewrite.so
 Để kết nối tới container php-fpm, ta phải thêm cấu hình máy handle cho code php của chúng ta </br>
 Thêm vào cuối file config httpd:
 ```
+AddHanller "proxy:fcgi://[php-container-name]" .php
+```
+##### Current project: php7.4-fpm được cài dặt trong container có tên là php-product:
+```
 AddHandler "proxy:fcgi://php-product:9000" .php
 ```
 
