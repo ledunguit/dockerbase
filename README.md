@@ -99,11 +99,31 @@ Copy các file config ra và chỉnh lại để lúc chạy lệnh ```docker-co
 docker run --rm -v [dir-host]:[dir-httpd-container] httpd cp /usr/local/apache2/conf/httpd.conf [dir-httpd-container]
 tại project này: docker run --rm -v /home/backupdocker/:/home/ httpd /usr/local/apache2/httpd.conf /home/
 ```
+Chỉnh sửa file conf: Enable các proxy, proxy-fcgi, rewrite.
+```
+LoadModule proxy_module modules/mod_proxy.so
+LoadModule proxy_fcgi_module modules/mod_proxy_fcgi.so
+LoadModule rewrite_module modules/mod_rewrite.so
+```
+Để kết nối tới container php-fpm, ta phải thêm cấu hình máy handle cho code php của chúng ta </br>
+Thêm vào cuối file config httpd:
+```
+AddHandler "proxy:fcgi://php-product:9000" .php
+```
 
 ###### Copy file config for mysql server ##
 ```Smali
 docker run --rm -v [dir-host]:[dir-mysql-container] mysql cp /etc/mysql/my.cnf [dir-mysql-container]
 tại project này: docker run --rm -v /home/backupdocker/:/home/ mysql cp /etc/mysql/my.cnf /home/
+```
+Chỉnh sửa file conf: Cấu hình authentication mặc định cho mysql là native password. Thêm dòng này vào cuối file config:
+```
+default-authentication-plugin=mysql_native_password
+```
+
+#### RUN:
+```
+docker-compose up
 ```
 
 ## Một số lệnh cơ bản ##
@@ -112,4 +132,3 @@ tại project này: docker run --rm -v /home/backupdocker/:/home/ mysql cp /etc/
 <b>Xóa</b> toàn bộ volumes đã define: <b>docker</b> volume rm $(<b>docker</b> volume ls -q)</br>
 <b>Xóa</b> toàn bộ containers: <b>docker</b> rm $(<b>docker</b> ps -aq)</br>
 <b>Xóa</b> toàn bộ images: <b>docker</b> rmi $(<b>docker</b> images -q)</br>
-
