@@ -15,7 +15,7 @@ FROM php:7.4-fpm
 RUN docker-php-ext-install mysqli # Cài đặt extension mysqli cho php
 RUN docker-php-ext-install pdo_mysql # Cài đặt extension pdo cho php
 
-WORKDIR /home/sites/testdocker // thư mục làm việc của container này sẽ nằm ở /home/sites/testdocker
+WORKDIR /home/sites/testdocker # thư mục làm việc của container này sẽ nằm ở /home/sites/testdocker
 ```
 
 ##### File docker-compose.yml
